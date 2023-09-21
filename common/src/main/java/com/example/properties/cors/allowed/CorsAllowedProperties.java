@@ -1,4 +1,4 @@
-package com.eelloo.properties.cors.allowed;
+package com.example.properties.cors.allowed;
 
 import org.springframework.boot.context.properties.ConfigurationPropertiesBinding;
 

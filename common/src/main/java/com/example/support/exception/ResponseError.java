@@ -1,4 +1,4 @@
-package com.eelloo.support.exception;
+package com.example.support.exception;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;

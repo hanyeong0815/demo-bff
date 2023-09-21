@@ -1,6 +1,6 @@
-package com.eelloo.properties.cors;
+package com.example.properties.cors;
 
-import com.eelloo.properties.cors.allowed.CorsAllowedProperties;
+import com.example.properties.cors.allowed.CorsAllowedProperties;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.ConfigurationPropertiesBinding;
 import org.springframework.boot.context.properties.NestedConfigurationProperty;

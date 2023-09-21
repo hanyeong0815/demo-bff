@@ -1,4 +1,4 @@
-package com.eelloo.support.exception.status2xx;
+package com.example.support.exception.status2xx;
 
 public class NoContentException extends RuntimeException {
     public NoContentException() {}

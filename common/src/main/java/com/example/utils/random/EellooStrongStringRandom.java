@@ -1,4 +1,4 @@
-package com.eelloo.utils.random;
+package com.example.utils.random;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;

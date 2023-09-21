@@ -1,4 +1,4 @@
-package com.eelloo.utils.random;
+package com.example.utils.random;
 
 public interface StrongStringRandom {
     String nextString(); // 32글자, - 제외

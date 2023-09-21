@@ -1,4 +1,4 @@
-package com.eelloo.support.exception;
+package com.example.support.exception;
 
 import org.springframework.http.HttpStatus;
 

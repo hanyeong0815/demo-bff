@@ -1,4 +1,4 @@
-package com.eelloo.utils.time;
+package com.example.utils.time;
 
 import org.apache.commons.net.ntp.NTPUDPClient;
 import org.apache.commons.net.ntp.TimeInfo;

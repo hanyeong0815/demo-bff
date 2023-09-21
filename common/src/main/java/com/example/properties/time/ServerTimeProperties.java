@@ -1,4 +1,4 @@
-package com.eelloo.properties.time;
+package com.example.properties.time;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.ConfigurationPropertiesBinding;

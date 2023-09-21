@@ -1,6 +1,6 @@
-package com.eelloo.utils.time;
+package com.example.utils.time;
 
-import com.eelloo.properties.time.ServerTimeProperties;
+import com.example.properties.time.ServerTimeProperties;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;

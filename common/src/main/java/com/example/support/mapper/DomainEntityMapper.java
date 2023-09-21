@@ -1,4 +1,4 @@
-package com.eelloo.support.mapper;
+package com.example.support.mapper;
 
 public interface DomainEntityMapper<DOMAIN, ENTITY> {
     DOMAIN toDomain(ENTITY entity);
