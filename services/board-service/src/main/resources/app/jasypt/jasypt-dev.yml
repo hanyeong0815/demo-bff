@@ -1,0 +1,7 @@
+# see: https://github.com/ulisesbocchio/jasypt-spring-boot#password-based-encryption-configuration
+
+jasypt:
+  encryptor:
+    password: ${jasypt_key:Vun13IxC773nhmkLWNIjtSowOcPHJSKSRrLw712LRM6ksMP7F_kR9w}
+    algorithm: PBEWithMD5AndDES
+    pool-size: 1

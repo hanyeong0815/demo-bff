@@ -1,0 +1,39 @@
+# 파일 규격 버전
+version: "3"
+# 이 항목 밑에 실행하려는 컨테이너 들을 정의
+services:
+  bff_postgres14:
+    image: postgres:14
+    container_name: bff_postgres14_rdb
+    environment:
+      TZ: Asia/Seoul
+      POSTGRES_DB: "${POSTGRES_DB}"
+      POSTGRES_USER: "${POSTGRES_USER}"
+      POSTGRES_PASSWORD: "${POSTGRES_PASSWORD}"
+      POSTGRES_INITDB_ARGS: '--encoding=UTF-8 --lc-collate=C --lc-ctype=C'
+    ports:
+      - "5432:5432"
+    volumes:
+      - preset_sticky_volume:/var/lib/postgresql/data
+      - ./db/initdb.d:/docker-entrypoint-initdb.d:ro
+    env_file:
+      - .env
+    restart: always
+  board_mongodb5_eelloo:
+    image: mongo:5.0 # Official Image
+    container_name: board_mongodb
+    environment:
+      # Information to Connect (Reserved Environments)
+      - MONGO_INITDB_ROOT_USERNAME=root
+      - MONGO_INITDB_ROOT_PASSWORD=root
+      - MONGO_INITDB_DATABASE=board
+    ports:
+      - 27037:27017 # accessing port : inside port
+    restart: on-failure
+    volumes:
+      # "local(or volume container):inside directory"
+      - sticky_volume_board_mongo:/data/db
+
+volumes:
+  preset_sticky_volume:
+  sticky_volume_board_mongo:
