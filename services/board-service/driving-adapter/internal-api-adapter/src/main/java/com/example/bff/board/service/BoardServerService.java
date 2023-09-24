@@ -1,9 +1,11 @@
 package com.example.bff.board.service;
 
+import com.example.bff.application.usecase.SaveBoardUseCase;
 import com.example.bff.domain.Board;
 import com.example.grpc.board.lib.BoardSaveGrpc.BoardSaveImplBase;
 import com.example.grpc.board.lib.BoardSaveRequest;
 import com.example.grpc.board.lib.BoardSaveResponse;
+import com.google.protobuf.Timestamp;
 import io.grpc.stub.StreamObserver;
 import lombok.RequiredArgsConstructor;
 import net.devh.boot.grpc.server.service.GrpcService;
@@ -13,7 +15,7 @@ import java.time.Instant;
 @GrpcService
 @RequiredArgsConstructor
 public class BoardServerService extends BoardSaveImplBase {
-    private final BoardSaveProxyService boardSaveProxyService;
+    private final SaveBoardUseCase saveBoardUseCase;
     @Override
     public void boardSave(BoardSaveRequest request, StreamObserver<BoardSaveResponse> responseObserver) {
         Board board = Board.builder()
@@ -21,6 +23,21 @@ public class BoardServerService extends BoardSaveImplBase {
                 .content(request.getContent())
                 .uploadDatetime(Instant.ofEpochSecond(request.getUploadDatetime().getSeconds(), request.getUploadDatetime().getNanos()))
                 .build();
-        boardSaveProxyService.saveBoard(board);
+        Board savedBoard = saveBoardUseCase.saveBoard(board);
+        BoardSaveResponse response = BoardSaveResponse.newBuilder()
+                .setResponse(
+                        BoardSaveRequest.newBuilder()
+                                .setTitle(savedBoard.title)
+                                .setContent(savedBoard.content)
+                                .setUploadDatetime(
+                                        com.google.protobuf.Timestamp.newBuilder()
+                                        .setSeconds(savedBoard.uploadDatetime.getEpochSecond())
+                                        .setNanos(savedBoard.uploadDatetime.getNano())
+                                )
+                                .build()
+                )
+                .build();
+        responseObserver.onNext(response);
+        responseObserver.onCompleted();
     }
 }

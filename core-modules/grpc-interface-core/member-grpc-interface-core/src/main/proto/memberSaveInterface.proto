@@ -18,5 +18,8 @@ message MemberSaveRequest {
 }
 
 message MemberSaveResponse {
-  MemberSaveRequest response = 1;
+  string id = 1;
+  string username = 2;
+  string genderType = 3;
+  string nickname = 4;
 }

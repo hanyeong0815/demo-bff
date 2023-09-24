@@ -114,6 +114,16 @@ project(jpaCoreModule) {
     }
 }
 
+project(passwordEncoderModule) {
+    dependencies {
+        implementation 'org.springframework.boot:spring-boot'
+        api 'org.springframework.security:spring-security-crypto'
+
+        implementation 'com.google.code.gson:gson:2.10.1'
+        implementation 'com.fasterxml.jackson.core:jackson-annotations'
+    }
+}
+
 project(memberGrpcInterfaceCore) {
     dependencies {
         implementation project(commonModule)
@@ -126,7 +136,7 @@ project(memberGrpcInterfaceCore) {
         protoc {
             artifact = 'com.google.protobuf:protoc:3.24.2'
         }
-        generatedFilesBaseDir = "$rootDir/src/generated"
+        generatedFilesBaseDir = "$projectDir/src/generated"
         clean {
             delete generatedFilesBaseDir
         }
@@ -183,11 +193,22 @@ project(boardGrpcInterfaceCore) {
         destinationDirectory = new File("$rootDir/grpc")
     }
 }
+// ========================================================================================== bff-service
+project(bffWebModule) {
+    dependencies {
+        implementation project(commonModule)
+        implementation project(memberGrpcInterfaceCore)
+        implementation project(boardGrpcInterfaceCore)
 
+        implementation 'org.springframework.boot:spring-boot-starter-webflux'
+        implementation 'net.devh:grpc-client-spring-boot-starter:2.14.0.RELEASE'
+    }
+}
 // ========================================================================================== member-service
 project(memberServiceModule) {
     dependencies {
         api project(commonModule)
+        implementation project(passwordEncoderModule)
         api project(globalExceptionHandlerModule)
         api project(memberApplicationModule)
         api project(memberRdbAdapter)
@@ -217,6 +238,7 @@ project(memberDomain) {
 project(memberApplicationModule) {
     dependencies {
         implementation project(commonModule)
+        implementation project(passwordEncoderModule)
         api project(memberDomain)
         api project(memberReadmodels)
 
@@ -248,8 +270,13 @@ project(memberRdbAdapter) {
 project(memberInternalApi) {
     dependencies {
         implementation project(commonModule)
+        implementation project(passwordEncoderModule)
+        api project(memberGrpcInterfaceCore)
+        api project(memberApplicationModule)
+
 
         implementation 'org.springframework.boot:spring-boot-starter'
+        api 'net.devh:grpc-server-spring-boot-starter:2.14.0.RELEASE'
     }
 }
 // ========================================================================================== board-service
@@ -257,8 +284,7 @@ project(boardServiceModule) {
     dependencies {
         implementation project(commonModule)
         api project(boardApplicationModule)
-//        api project(boardRdbAdapter)
-        api project(boardNosqlAdapter)
+        api project(boardRdbAdapter)
         api project(boardInternalApiAdapter)
         api project(boardGrpcInterfaceCore)
 
@@ -309,20 +335,6 @@ project(boardRdbAdapter) {
 
         // Flyway
         implementation 'org.flywaydb:flyway-core'
-    }
-}
-
-project(boardNosqlAdapter) {
-    dependencies {
-        implementation project(commonModule)
-        implementation project(boardApplicationModule)
-
-        api 'org.springframework.boot:spring-boot-starter-data-mongodb'
-
-        // Map Struct
-        implementation 'org.mapstruct:mapstruct:1.5.3.Final'
-        annotationProcessor 'org.mapstruct:mapstruct-processor:1.5.3.Final'
-        annotationProcessor 'org.projectlombok:lombok-mapstruct-binding:0.2.0'
     }
 }
 

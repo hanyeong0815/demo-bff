@@ -15,7 +15,7 @@ import java.util.UUID;
 
 @Repository
 @RequiredArgsConstructor
-public final class MemberPersistence implements MemberRepository {
+public class MemberPersistence implements MemberRepository {
     private final MemberEntityMapper mapper;
     private final MemberJpaRepository repository;
 
