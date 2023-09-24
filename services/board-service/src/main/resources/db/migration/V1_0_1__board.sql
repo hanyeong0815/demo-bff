@@ -1,5 +1,5 @@
 CREATE TABLE board.board (
-    id                      BIGINT,
+    id                      BIGSERIAL,
     member_id               UUID,
     username                varchar(50),
     title                   varchar(50),

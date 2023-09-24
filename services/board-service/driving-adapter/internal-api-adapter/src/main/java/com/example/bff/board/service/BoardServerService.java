@@ -25,16 +25,13 @@ public class BoardServerService extends BoardSaveImplBase {
                 .build();
         Board savedBoard = saveBoardUseCase.saveBoard(board);
         BoardSaveResponse response = BoardSaveResponse.newBuilder()
-                .setResponse(
-                        BoardSaveRequest.newBuilder()
-                                .setTitle(savedBoard.title)
-                                .setContent(savedBoard.content)
-                                .setUploadDatetime(
-                                        com.google.protobuf.Timestamp.newBuilder()
-                                        .setSeconds(savedBoard.uploadDatetime.getEpochSecond())
-                                        .setNanos(savedBoard.uploadDatetime.getNano())
-                                )
-                                .build()
+                .setId(savedBoard.id)
+                .setTitle(savedBoard.title)
+                .setContent(savedBoard.content)
+                .setUploadDatetime(
+                        com.google.protobuf.Timestamp.newBuilder()
+                                .setSeconds(savedBoard.uploadDatetime.getEpochSecond())
+                                .setNanos(savedBoard.uploadDatetime.getNano())
                 )
                 .build();
         responseObserver.onNext(response);

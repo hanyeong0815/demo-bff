@@ -28,12 +28,12 @@ public class GrpcMemberClient implements MemberClient {
         return toMemberResponseDto(response);
     }
 
-    private MemberSaveResponseDto toMemberResponseDto(MemberSaveResponse request) {
+    private MemberSaveResponseDto toMemberResponseDto(MemberSaveResponse res) {
         return MemberSaveResponseDto.builder()
-                .id(request.getId())
-                .username(request.getUsername())
-                .genderType(request.getGenderType())
-                .nickname(request.getNickname())
+                .id(res.getId())
+                .username(res.getUsername())
+                .genderType(res.getGenderType())
+                .nickname(res.getNickname())
                 .build();
     }
 }

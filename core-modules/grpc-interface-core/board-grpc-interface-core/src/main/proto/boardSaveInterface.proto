@@ -19,5 +19,8 @@ message BoardSaveRequest {
 }
 
 message BoardSaveResponse {
- BoardSaveRequest response = 1;
+  sint64 id = 1;
+  string title = 2;
+  string content = 3;
+  google.protobuf.Timestamp uploadDatetime = 4;
 }
