@@ -5,13 +5,17 @@ import com.example.bff.application.repository.MemberRepository;
 import com.example.bff.domain.Member;
 import com.example.bff.rdb.entity.MemberEntity;
 import com.example.bff.rdb.mapper.MemberEntityMapper;
+import com.example.bff.read_model.MemberViewDto.MemberDetailViewResponseDto;
+import com.example.bff.read_model.MemberViewDto.MemberListViewResponseDto;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Repository
 @RequiredArgsConstructor
@@ -31,17 +35,22 @@ public class MemberPersistence implements MemberRepository {
     }
 
     @Override
-    public Optional<Member> findById(UUID id) {
+    public Optional<MemberDetailViewResponseDto> findById(UUID id) {
         return repository
-                .findById(id)
-                .map(mapper::toDomain);
+                .findProjectionById(id)
+                .map(mapper::from);
     }
 
     @Override
-    public List<Member> findAll(Pageable pageable) {
-        return repository.findBy(pageable)
-                .map(mapper::toDomain)
-                .getContent();
+    public MemberListViewResponseDto findAll(Pageable pageable) {
+        Page<MemberDetailViewResponseDto> dto = repository.findProjectionBy(pageable)
+                .map(mapper::from);
+
+        return MemberListViewResponseDto.builder()
+                .members(dto.getContent())
+                .AllContent(dto.getTotalElements())
+                .lastPage(dto.getTotalPages())
+                .build();
     }
 
     @Override

@@ -1,0 +1,31 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "com.example.grpc.member.lib";
+option java_outer_classname = "memberFindProtobuf";
+
+service MemberFind {
+  rpc memberFindById (MemberFindByIdRequest) returns (MemberFindByIdResponse) {}
+  rpc memberFindAll (MemberFindAllRequest) returns (MemberFindAllResponse) {}
+
+}
+
+message MemberFindByIdRequest {
+  string id = 1;
+}
+
+message MemberFindByIdResponse {
+  string id = 1;
+  string username = 2;
+  string nickname = 3;
+}
+
+message MemberFindAllRequest {
+  sint32 page = 1;
+}
+
+message MemberFindAllResponse {
+  repeated MemberFindByIdResponse members = 1;
+  sint64 allContent = 2;
+  sint32 lastPage = 3;
+}

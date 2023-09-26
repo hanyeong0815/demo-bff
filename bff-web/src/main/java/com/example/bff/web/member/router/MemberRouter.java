@@ -22,6 +22,7 @@ public class MemberRouter {
                 path("/v1/member"),
                 route()
                         .POST("", memberHandlerV1::save)
+                        .GET("", memberHandlerV1::find)
                         .build()
         );
     }

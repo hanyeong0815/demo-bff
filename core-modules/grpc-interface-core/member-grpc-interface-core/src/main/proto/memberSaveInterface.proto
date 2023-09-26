@@ -5,9 +5,8 @@ option java_package = "com.example.grpc.member.lib";
 option java_outer_classname = "memberSaveProtobuf";
 
 service MemberSave {
-  rpc memberSave (MemberSaveRequest) returns (MemberSaveResponse) {
+  rpc memberSave (MemberSaveRequest) returns (MemberSaveResponse) {}
 
-  }
 }
 
 message MemberSaveRequest {
