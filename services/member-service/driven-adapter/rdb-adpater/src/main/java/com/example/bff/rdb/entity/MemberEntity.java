@@ -1,6 +1,6 @@
 package com.example.bff.rdb.entity;
 
-import com.example.bff.domain.type.MemberType;
+import com.example.bff.domain.type.GenderType;
 import com.example.bff.jpa.UuidBaseEntity;
 import com.example.bff.rdb.support.MemberSchemaConstants;
 import jakarta.persistence.Entity;
@@ -24,6 +24,6 @@ public class MemberEntity extends UuidBaseEntity {
     public String username;
     public String password;
     @Enumerated(EnumType.STRING)
-    public MemberType genderType;
+    public GenderType genderType;
     public String nickname;
 }

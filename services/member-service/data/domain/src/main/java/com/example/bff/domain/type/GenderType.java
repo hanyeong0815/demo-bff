@@ -3,7 +3,7 @@ package com.example.bff.domain.type;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
-public enum MemberType {
+public enum GenderType {
     M("M"),
     F("F");
 

@@ -4,6 +4,7 @@ import com.example.bff.web.common.support.BaseBffCrudWebFluxHandler;
 import com.example.bff.web.member.dto.MemberSaveDto.MemberSaveRequestDto;
 import com.example.bff.web.member.dto.MemberSaveDto.MemberSaveResponseDto;
 import com.example.bff.web.member.service.MemberClient;
+import com.example.grpc.member.lib.MemberSaveResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
@@ -19,14 +20,9 @@ public class MemberHandlerV1 implements BaseBffCrudWebFluxHandler {
     @Override
     public Mono<ServerResponse> save(ServerRequest request) {
         Mono<MemberSaveResponseDto> dto = request.bodyToMono(MemberSaveRequestDto.class)
-                .map(req -> {
-                    MemberSaveRequestDto requestDto = MemberSaveRequestDto.builder()
-                            .username(req.username())
-                            .password(req.password())
-                            .genderType(req.genderType())
-                            .nickname(req.nickname())
-                            .build();
-                    return memberClient.save(requestDto);
+                .flatMap(requestDto -> {
+                    MemberSaveResponseDto memberSaveResponse = memberClient.save(requestDto);
+                    return Mono.just(memberSaveResponse);
                 });
 
         return ServerResponse

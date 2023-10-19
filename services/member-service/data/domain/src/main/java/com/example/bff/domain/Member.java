@@ -1,6 +1,6 @@
 package com.example.bff.domain;
 
-import com.example.bff.domain.type.MemberType;
+import com.example.bff.domain.type.GenderType;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.NoArgsConstructor;
@@ -14,6 +14,6 @@ public class Member {
     public UUID id;
     public String username;
     public String password;
-    public MemberType genderType;
+    public GenderType genderType;
     public String nickname;
 }
